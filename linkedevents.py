@@ -66,8 +66,4 @@ else:
     application.config['/img'] = {
         'tools.staticdir.on': True,
         'tools.staticdir.dir': 'img' }
-    for path, file in static_content.iteritems():
-        application.config[path] = { 
-            'tools.staticfile.on': True,
-            'tools.staticfile.filename': os.path.join(cwd, 'static', file) }
 
