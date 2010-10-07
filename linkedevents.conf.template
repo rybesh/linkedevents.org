@@ -1,0 +1,42 @@
+WSGISocketPrefix run/wsgi
+
+<VirtualHost *:80>
+
+    ServerName view.linkedevents.org
+    ServerAdmin %(admin_email)s
+
+    ProxyRequests Off
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+    ProxyPass / %(cliopatria_uri)s
+    ProxyPassReverse / %(cliopatria_uri)s
+
+</VirtualHost>
+
+<VirtualHost *:80>
+
+    ServerName linkedevents.org
+    ServerAlias www.linkedevents.org
+    ServerAdmin %(admin_email)s
+
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^www\.linkedevents\.org$ [NC]
+    RewriteRule ^/(.*)$ http://linkedevents.org/$1 [R=301,L]
+
+    WSGIDaemonProcess linkedevents.org \
+        python-path=%(path)s \
+        processes=2 \
+        threads=15 \
+        display-name=%{GROUP}
+    WSGIProcessGroup linkedevents.org
+
+    WSGIScriptAlias / %(path)s/linkedevents.py
+
+    <Directory %(path)s>
+    Order allow,deny
+    Allow from all
+    </Directory>
+
+</VirtualHost>
