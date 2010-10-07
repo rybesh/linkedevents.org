@@ -1,6 +1,5 @@
 This is a tiny webapp for serving the LODE ontology as HTML and RDF/XML. 
 
-
 The following installation procedure is intended to be run on a local machine, 
 targeting a remote web server. It assumes that the remote web server is running
 Apache and [mod_wsgi][], and that the `linkedevents.org` domain and 
@@ -8,7 +7,6 @@ Apache and [mod_wsgi][], and that the `linkedevents.org` domain and
 address.
 
 To install:
-
 
 1. Install [Fabric][] on your local machine.
 2. Install [virtualenv][] on your remote web server.
@@ -19,3 +17,15 @@ To install:
 [mod_wsgi]: http://code.google.com/p/modwsgi/
 [Fabric]: http://fabfile.org/
 [virtualenv]: http://pypi.python.org/pypi/virtualenv
+
+To release a new version of the LODE ontology:
+
+1. Install the [Redland Python bindings][] and [lxml][].
+2. Edit `linkedevents.ttl` to make your changes. Make sure to set the
+   `dcterm:issued` property on any new classes or properties.
+3. Run `python release.py [date]`, where `[date]` is the date of issue of the
+   updated ontology. For example: `python release.py 2010-10-07`
+4. Inspect the generated files under `static/ontology/[date]`. If they look OK, 
+   update the symbolic link `static/ontology/current` to point to 
+   `static/ontology/[date]`.
+5. Run `fab deploy`.

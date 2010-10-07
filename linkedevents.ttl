@@ -1,0 +1,270 @@
+@prefix cc: <http://web.resource.org/cc/> .
+@prefix crm: <http://purl.org/NET/cidoc-crm/core#> .
+@prefix dcterm: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dul: <http://www.loa-cnr.it/ontologies/DUL.owl#> .
+@prefix ev: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix lode: <http://linkedevents.org/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<> a owl:Ontology;
+dcterm:isVersionOf <http://linkedevents.org/ontology/> ;
+dcterm:title "LODE: An ontology for Linking Open Descriptions of Events"@en ;
+rdfs:label "LODE: An ontology for Linking Open Descriptions of Events"@en ;
+dcterm:issued "2009-10-07"^^xsd:date ;
+dcterm:creator [
+  foaf:name "Ryan Shaw" ;
+  foaf:homepage <http://aeshin.org/> ] ;
+dcterm:contributor [
+  foaf:name "Raphaël Troncy" ;
+  foaf:homepage <http://www.cwi.nl/~troncy/> ] ;
+dcterm:contributor [
+  foaf:name "Lynda Hardman" ;
+  foaf:homepage <http://www.cwi.nl/~lynda/> ] ;
+dcterm:rights "Copyright © 2010 Ryan Shaw" ;
+cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+rdfs:comment """
+This document describes an ontology for publishing descriptions of
+historical events as Linked Data, and for mapping between other
+event-related vocabularies and ontologies."""@en ;
+dcterm:hasFormat <html/>, <rdfxml/> ;
+vann:preferredNamespaceUri "http://linkedevents.org/ontology/" ;
+vann:preferredNamespacePrefix "lode" ;
+.
+
+<html/> dcterm:format [ 
+  a dcterm:IMT;
+  rdf:value "text/html" ;
+  rdfs:label "HTML"@en ] .
+
+<rdfxml/> dcterm:format [ 
+  a dcterm:IMT;
+  rdf:value "application/rdf+xml" ;
+  rdfs:label "RDF/XML"@en ] .
+
+# Classes ----------------------------------------------------------------------
+
+lode:Event a owl:Class;
+rdfs:label "Event"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2009-07-28"^^xsd:date ;
+skos:definition """
+\"Something that happened,\" as might be reported in a news article or
+explained by a historian."""@en ;
+rdfs:comment """
+An event consists of some temporal and spatial boundaries subjectively
+imposed on the flux of reality or imagination, that we wish to treat
+as an entity for the purposes of making statements about it. In
+particular, we may wish to make statements that relate people, places,
+or things to an event."""@en ;
+rdfs:comment """
+Note that, unlike some defintions of \"event,\" this definition does not
+specify that an event involves a change of state, nor does it attempt
+to distinguish events from processes or states."""@en ;
+.
+
+
+# Properties  ------------------------------------------------------------------
+
+lode:atTime a owl:ObjectProperty, owl:FunctionalProperty;
+rdfs:label "at time"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2009-07-28"^^xsd:date ;
+skos:definition """
+an abstract instant or interval of
+time that is when an event happened."""@en ;
+rdfs:comment """
+This property relates an event to some subjectively imposed temporal
+boundaries, i.e. a span of time. An event can be related to only one
+such span of time."""@en ;
+rdfs:comment """
+Equivalent definitions from other ontologies:
+
+* C4DM Event ontology: \"Relates an event to a time object, classifying
+  a time region (either instantaneous or having an extent).\""""@en ;
+rdfs:domain lode:Event;
+rdfs:range time:TemporalEntity;
+.
+
+lode:circa a owl:ObjectProperty;
+rdfs:label "circa"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2009-07-28"^^xsd:date ;
+skos:definition """
+an interval of time that can be
+precisely described using calendar dates and clock times."""@en ;
+rdfs:comment "An temporal relation expressing nearness in time."@en ;
+rdfs:comment """
+This property relates a span of time that cannot be precisely located
+in a chronological series to another span of time that can be
+precisely located, thus asserting that the latter is an approximation
+of the former."""@en ;
+rdfs:domain time:TemporalEntity;
+rdfs:range time:DateTimeInterval;
+.
+
+lode:inSpace a owl:ObjectProperty, owl:FunctionalProperty;
+rdfs:label "in space"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2009-07-28"^^xsd:date ;
+skos:definition """
+an abstract region of space (e.g. a
+geospatial point or region) that is where an event happened."""@en ;
+rdfs:comment """
+This property relates an event to some subjectively imposed spatial
+boundaries, i.e. a region of space. An event can be related to only
+one such region of space."""@en ;
+rdfs:comment """
+Note that a statement that relates an event to a region of space using
+this property only asserts that an event occurred somewhere within
+the region and does not assert that it occurred everywhere within the
+region."""@en ;
+rdfs:domain lode:Event;
+rdfs:range geo:SpatialThing;
+.
+
+lode:atPlace a owl:ObjectProperty;
+rdfs:label "at place"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2009-07-28"^^xsd:date ;
+skos:definition """
+a named or relatively specified place that is where
+an event happened."""@en ;
+rdfs:comment """
+This property relates an event to some meaningful place, which may
+have a name (e.g. \"Paris\") or may be defined relative to some other
+entity or entities (e.g. \"the unincorporated area between Carson and
+Harbor Gateway\"). An event may be related to more than one such
+place."""@en ;
+rdfs:domain lode:Event;
+rdfs:range dul:Place;
+.
+
+lode:involved a owl:ObjectProperty;
+rdfs:label "involved"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2009-07-28"^^xsd:date ;
+skos:definition """
+a (physical, social, or mental) object involved in
+an event."""@en ;
+rdfs:comment """
+This property relates an event to any physical, social, or mental
+object or substance. It does not imply any causal relationship or
+influence or any other kind of explanatory relationship such as
+creation, destruction, etc."""@en ;
+rdfs:domain lode:Event;
+rdfs:range dul:Object;
+.
+
+lode:involvedAgent a owl:ObjectProperty;
+rdfs:label "involved agent"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2009-07-28"^^xsd:date ;
+skos:definition "an agent involved in an event."@en ;
+rdfs:comment """
+This property relates an event to anything with agency, such as a
+(legal or natural) person, a group, an organization, a computational
+agent, etc. It does not imply any causal relationship, influence,
+intentionality, etc."""@en ;
+rdfs:domain lode:Event;
+rdfs:range dul:Agent;
+rdfs:subPropertyOf lode:involved;
+.
+
+lode:illustrate a owl:ObjectProperty;
+rdfs:label "illustrate"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2010-10-07"^^xsd:date ;
+skos:definition """
+an event illustrated by some thing (typically a media object)."""@en ;
+rdfs:comment """
+This property relates any thing (typically a media object) to an event which it
+illustrates, documents or comments upon."""@en ;
+rdfs:domain owl:Thing;
+rdfs:range lode:Event;
+.
+
+
+# Relations with DOLCE+DnS Ultralite ontology ----------------------------------
+
+# The event class and participatory relations have direct equivalents
+# in the DOLCE+DnS Ultralite ontology.
+lode:Event owl:equivalentClass dul:Event . 
+lode:involved owl:equivalentProperty dul:hasParticipant .
+lode:involvedAgent owl:equivalentProperty dul:involvesAgent .
+
+# lode:atTime is a sub-property of dul:isObservableAt because it
+# restricts the domain of the latter to include only events, not all
+# entities.
+lode:atTime rdfs:subPropertyOf dul:isObservableAt .
+
+# lode:inSpace is a sub-property of dul:hasRegion because it restricts
+# the domain of dul:hasRegion to include only events, not all
+# entities, and because it restricts the range of dul:hasRegion to
+# include only spatial regions, not any dimensional space.
+lode:inSpace rdfs:subPropertyOf dul:hasRegion .
+
+# lode:atPlace is a sub-property of dul:hasLocation because it restricts
+# the latter such that the domain includes only events (not all
+# entities) and the range includes only places (not all entities).
+lode:atPlace rdfs:subPropertyOf dul:hasLocation .
+
+
+# Relations with C4DM Event ontology -------------------------------------------
+
+# The event class, time and space relations, and agent participation
+# relation have direct equivalents in the C4DM Event ontology.
+lode:Event owl:equivalentClass ev:Event .
+lode:atTime owl:equivalentProperty ev:time .
+lode:inSpace owl:equivalentProperty ev:place .
+
+# ev:agent is a sub-property of lode:involvedAgent because the latter
+# generalizes the former to include all relations to agents whether or
+# not their role is "active or "passive".  
+ev:agent rdfs:subPropertyOf lode:involvedAgent .
+
+# lode:involved is both more specific than ev:factor, because it
+# restricts the range of the latter to include only objects, and more
+# general, because it does not imply a "passive" role for the involved
+# object. Thus there is no equivalence relation between the two.
+
+# There is no property related to ev:product because this ontology
+# takes the position that such relationships are better expressed as
+# particular views of an event.
+
+
+# Relations with CIDOC CRM ontology --------------------------------------------
+
+# lode:Event is a sub-class of crm:E2_Temporal_Entity because the latter
+# is defined as "anything that happens over a limited extent in time,"
+# which is more general than the definition given here. Furthermore,
+# the CIDOC CRM documentation specifies that E2_Temporal_Entity is
+# "abstract" and "has no direct instances."
+lode:Event rdfs:subClassOf crm:E2_Temporal_Entity .
+
+# lode:atTime is a sub-property of crm:P4_has_time-span because it
+# restricts the domain of the latter to include only events (as
+# defined here) rather than any temporal entity (see above).
+lode:atTime rdfs:subPropertyOf crm:P4_has_time-span .
+
+# The following properties generalize properties in the CIDOC CRM
+# ontology because they expand the domains of the latter to cover the
+# more general definition of event given here.
+crm:P7_took_place_at rdfs:subPropertyOf lode:inSpace .
+crm:P12_occurred_in_the_presence_of rdfs:subPropertyOf lode:involved .
+crm:P11_had_participant rdfs:subPropertyOf lode:involvedAgent .
+
+
+# Relations with DCMI Type vocabulary ------------------------------------------
+
+# lode:Event is a sub-class of dctype:Event because dctype:Event is an
+# rdfs:Class rather than an owl:Class.
+lode:Event rdfs:subClassOf dctype:Event .
