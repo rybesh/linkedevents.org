@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from fabric.api import *
-from fabric.utils import abort
 from fabric.contrib.files import exists, upload_template
 
 # CONFIGURATION -----------------------------------------------------------------
@@ -24,17 +23,6 @@ env.cliopatria_uri = 'http://gray.ischool.berkeley.edu:3020/'
 
 # TASKS -------------------------------------------------------------------------
 
-def setup():
-    """
-    Setup a fresh virtualenv as well as a few useful directories, then
-    run a full deployment.
-    """
-    run('mkdir -p %(path)s' % env)
-    with cd(env.path):
-        run('virtualenv --no-site-packages .')
-        run('mkdir -p packages')
-        deploy()
-    
 def deploy():
     """
     Deploy the latest version of the site to the servers, install any
@@ -42,7 +30,10 @@ def deploy():
     restart the webserver.
     """
     if not exists(env.path):
-        abort("Please run 'fab setup' first.")
+        run('mkdir -p %(path)s' % env)
+        with cd(env.path):
+            run('virtualenv --no-site-packages .')
+            run('mkdir -p packages')
     import time
     env.release = time.strftime('%Y%m%d%H%M%S')
     upload_tar_from_git()
