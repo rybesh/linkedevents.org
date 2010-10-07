@@ -22,14 +22,14 @@ WSGISocketPrefix run/wsgi
     ServerAdmin %(admin_email)s
 
     RewriteEngine On
-    RewriteCond %{HTTP_HOST} ^www\.linkedevents\.org$ [NC]
+    RewriteCond %%{HTTP_HOST} ^www\.linkedevents\.org$ [NC]
     RewriteRule ^/(.*)$ http://linkedevents.org/$1 [R=301,L]
 
     WSGIDaemonProcess linkedevents.org \
         python-path=%(path)s \
         processes=2 \
         threads=15 \
-        display-name=%{GROUP}
+        display-name=%%{GROUP}
     WSGIProcessGroup linkedevents.org
 
     WSGIScriptAlias / %(path)s/linkedevents.py

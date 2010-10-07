@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from fabric.api import *
-from fabric.contrib.files import upload_template
+from fabric.utils import abort
+from fabric.contrib.files import exists, upload_template
 
 # CONFIGURATION -----------------------------------------------------------------
 
@@ -40,6 +41,8 @@ def deploy():
     required third party modules, install the virtual host and then
     restart the webserver.
     """
+    if not exists(env.path):
+        abort("Please run 'fab setup' first.")
     import time
     env.release = time.strftime('%Y%m%d%H%M%S')
     upload_tar_from_git()
@@ -64,5 +67,8 @@ def install_requirements():
 
 def install_site():
     "Add the virtualhost file to apache."
-    upload_template('linkedevents.conf.template', env.vhosts_path, env, use_sudo=True)
+    upload_template('linkedevents.conf.template', '%(path)s/linkedevents.conf' % env, env)
+    with cd(env.vhosts_path):
+        sudo('rm -f linkedevents.conf' % env, pty=True)
+        sudo('ln -s %(path)s/linkedevents.conf' % env, pty=True)
 
