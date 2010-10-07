@@ -7,6 +7,7 @@ Apache and [mod_wsgi][], and that the `linkedevents.org` domain and
 address.
 
 To install:
+-----------
 
 1. Install [Fabric][] on your local machine.
 2. Install [virtualenv][] on your remote web server.
@@ -19,6 +20,7 @@ To install:
 [virtualenv]: http://pypi.python.org/pypi/virtualenv
 
 To release a new version of the LODE ontology:
+----------------------------------------------
 
 1. Install the [Redland Python bindings][] and [lxml][].
 2. Edit `linkedevents.ttl` to make your changes. Make sure to set the
@@ -29,3 +31,6 @@ To release a new version of the LODE ontology:
    update the symbolic link `static/ontology/current` to point to 
    `static/ontology/[date]`.
 5. Run `fab deploy`.
+
+[Redland Python bindings]: http://librdf.org/docs/python.html
+[lxml]: http://codespeak.net/lxml/
