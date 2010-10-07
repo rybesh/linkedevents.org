@@ -6,8 +6,7 @@ Apache and [mod_wsgi][], and that the `linkedevents.org` domain and
 `view.linkedevents.org` subdomain are pointed to the remote web server's IP 
 address.
 
-To install:
------------
+** To install: **
 
 1. Install [Fabric][] on your local machine.
 2. Install [virtualenv][] on your remote web server.
@@ -19,8 +18,7 @@ To install:
 [Fabric]: http://fabfile.org/
 [virtualenv]: http://pypi.python.org/pypi/virtualenv
 
-To release a new version of the LODE ontology:
-----------------------------------------------
+** To release a new version of the LODE ontology: **
 
 1. Install the [Redland Python bindings][] and [lxml][].
 2. Edit `linkedevents.ttl` to make your changes. Make sure to set the
