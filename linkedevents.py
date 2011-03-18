@@ -39,7 +39,7 @@ class Ontology:
 class Root:
     @cherrypy.expose
     def index(self):
-        raise cherrypy.HTTPRedirect('http://view.linkedevents.org/session/browse')
+        raise cherrypy.HTTPRedirect('/ontology/')
 
 def _init_webapp():
     root = Root()

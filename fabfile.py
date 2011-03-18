@@ -10,16 +10,13 @@ from fabric.contrib.files import exists, upload_template
 env.user = 'ryanshaw'
 
 # Path to install directory.
-env.path = '/opt/cherrypy-sites/linkedevents.org'
+env.path = '/db/projects/linkedevents'
 
 # Path to Apache virtualhosts config directory.
 env.vhosts_path = '/etc/httpd/sites.d'
 
 # Email address of server administrator.
 env.admin_email = 'ryanshaw@ischool.berkeley.edu'
-
-# URI of Cliopatria interface.
-env.cliopatria_uri = 'http://gray.ischool.berkeley.edu:3020/'
 
 # TASKS -------------------------------------------------------------------------
 
