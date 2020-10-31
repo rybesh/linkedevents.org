@@ -1,53 +1,45 @@
-#!/usr/bin/env python
-# encoding: utf-8
+#! ./venv/bin/python3
+
 """
-Utility for deploying new releases of the LODE ontology.
+Utility for generating HTML documentation of the LODE ontology.
 """
-import RDF
 import datetime
 import os
 import sys
-import urlparse
+from urllib.parse import urljoin
 from lxml import etree
-from namespaces import *
+from rdflib import Graph, Literal, Namespace
+from rdflib.namespace import RDF, OWL, DCTERMS, XSD
+
+LODE = Namespace('http://linkedevents.org/ontology/')
+
 
 def run(date):
-    # Load current master ontology.
-    m = RDF.Model()
-    parser = RDF.Parser(name='turtle')
-    base_uri = leo._prefix
-    parser.parse_string_into_model(m, open('linkedevents.ttl').read(), base_uri)
-    ontology = m.get_source(rdf.type, owl.Ontology)
-    m.append(RDF.Statement(
-            ontology, dcterm.date, 
-            RDF.Node(literal=date, datatype=xsd.date.uri)))
-    m.append(RDF.Statement(
-            ontology, dcterm.modified, 
-            RDF.Node(literal=date, datatype=xsd.date.uri)))
-    m.append(RDF.Statement(
-            ontology, dcterm.identifier, 
-            RDF.Node(literal=(base_uri + date + '/'))))
-    m.append(RDF.Statement(
-            ontology, owl.versionInfo, 
-            RDF.Node(literal=date)))
+    # Load current base ontology.
+    g = Graph()
+    g.parse('linkedevents.ttl', publicID=str(LODE), format='turtle')
+    ontology = g.value(predicate=RDF.type, object=OWL.Ontology)
+    g.add((ontology, DCTERMS.date, Literal(date, datatype=XSD.date)))
+    g.add((ontology, DCTERMS.modified, Literal(date, datatype=XSD.date)))
+    g.add((ontology, DCTERMS.identifier, Literal(f'{LODE}{date}/')))
+    g.add((ontology, OWL.versionInfo, Literal(date)))
+
     # Write released ontology.
-    serializer = RDF.Serializer(name='rdfxml-abbrev')
-    for prefix, ns in namespaces.iteritems():
-        serializer.set_namespace(prefix, ns._prefix)
-    release_dir = os.path.join('static', 'ontology', date)
+    release_dir = os.path.join('ontology', date)
+    release_file = os.path.join(release_dir, 'index.rdf')
     if not os.path.isdir(release_dir):
         os.makedirs(release_dir)
-    release_file = os.path.join(release_dir, 'index.rdf')
-    serializer.serialize_model_to_file(release_file, m, base_uri=base_uri)
+    g.serialize(release_file, base=str(LODE), format='pretty-xml', max_depth=1)
+
     # Generate HTML documentation.
     def resolve_uri(context, relative_uri):
-        return urlparse.urljoin(context.context_node.base, relative_uri[0])
+        return urljoin(context.context_node.base, relative_uri[0])
     ns = etree.FunctionNamespace('http://python.org/')
     ns['resolve-uri'] = resolve_uri
     transform = etree.XSLT(etree.parse('vocab-toolchain/html-docs.xsl'))
     html = transform(etree.parse(release_file))
     html.write(os.path.join(release_dir, 'index.html'), method='html')
-    
+
 
 if __name__ == '__main__':
     date = datetime.date.today()
