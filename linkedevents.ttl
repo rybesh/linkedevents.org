@@ -38,6 +38,10 @@ event-related vocabularies and ontologies."""@en ;
 dcterm:hasFormat <html/>, <rdfxml/> ;
 vann:preferredNamespaceUri "http://linkedevents.org/ontology/" ;
 vann:preferredNamespacePrefix "lode" ;
+skos:historyNote [
+  rdf:value "Added illustrate property." ;
+  dcterm:date "2010-10-07"^^xsd:date ;
+  dcterm:creator "Raphaël Troncy" ]
 .
 
 <html/> dcterm:format [ 

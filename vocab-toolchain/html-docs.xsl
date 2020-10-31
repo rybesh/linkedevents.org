@@ -62,7 +62,7 @@ Brief notes on the kind of RDF/XML this schema requires:
   o Add as many rdfs:comment elements as necessary to document the term
   o Add a dcterm:issued element containing the date the term was first issued in YYYY-MM-DD format
   o For each editorial change to previous version add a skos:changeNote elements with an rdf:value attribute describing the change, a dcterm:date attribute containing the date of the change in YYYY-MM-DD format and a dcterm:creator attribute containing the name of the change author
-  o For each semantric change to previous version add a skos:historyNote elements with an rdf:value attribute describing the change, a dcterm:date attribute containing the date of the change in YYYY-MM-DD format and a dcterm:creator attribute containing the name of the change author 
+  o For each semantic change to previous version add a skos:historyNote elements with an rdf:value attribute describing the change, a dcterm:date attribute containing the date of the change in YYYY-MM-DD format and a dcterm:creator attribute containing the name of the change author 
 
   -->
 
@@ -128,11 +128,8 @@ Brief notes on the kind of RDF/XML this schema requires:
           <xsl:if test="*[@rdf:about='']/dcterm:replaces/@rdf:resource">
             <dt>Previous Version</dt>
             <dd>
-              <a>
-                <xsl:attribute name="href"><xsl:call-template name="removeExtension"><xsl:with-param name="uri" select="*[@rdf:about='']/dcterm:replaces/@rdf:resource"/></xsl:call-template>                   </xsl:attribute>
-                <xsl:call-template name="removeExtension">
-                  <xsl:with-param name="uri" select="*[@rdf:about='']/dcterm:replaces/@rdf:resource"/>
-                </xsl:call-template>
+              <a href="{py:resolve-uri(*[@rdf:about='']/dcterm:replaces/@rdf:resource)}">
+                <xsl:value-of select="py:resolve-uri(*[@rdf:about='']/dcterm:replaces/@rdf:resource)"/>
               </a>
             </dd>
           </xsl:if>
@@ -219,7 +216,7 @@ Brief notes on the kind of RDF/XML this schema requires:
         <a href="#sec-introduction">Introduction</a>
       </li>
       
-      <xsl:if test="*[@rdf:about='']/vann:changes ">
+      <xsl:if test="*[@rdf:about='']/dcterm:replaces">
         <li>
           <a href="#sec-changes">Changes From Previous Version</a>
         </li>
@@ -266,15 +263,15 @@ Brief notes on the kind of RDF/XML this schema requires:
     <xsl:apply-templates select="*[@rdf:about='']/dcterm:description|*[@rdf:about='']/rdfs:comment"/>
 
 
-    <h2 id="sec-changes">Changes From Previous Version</h2>
-    <ul>
-      <xsl:if test="dcterm:issued|@dcterm:issued">
-        <li><span class="date"><xsl:value-of select="*[@rdf:about='']/dcterm:issued|*[@rdf:about='']/@dcterm:issued"/></span> - first issued</li>
-      </xsl:if>
-      <xsl:apply-templates select="*[@rdf:about='']/skos:changeNote|*[@rdf:about='']/skos:historyNote" />
-    </ul>
-
-    <xsl:apply-templates select="*[@rdf:about='']/vann:changes"/>
+    <xsl:if test="*[@rdf:about='']/dcterm:replaces">
+      <h2 id="sec-changes">Changes From Previous Version</h2>
+      <ul>
+        <xsl:if test="dcterm:issued|@dcterm:issued">
+          <li><span class="date"><xsl:value-of select="*[@rdf:about='']/dcterm:issued|*[@rdf:about='']/@dcterm:issued"/></span> - first issued</li>
+        </xsl:if>
+        <xsl:apply-templates select="*[@rdf:about='']/skos:changeNote|*[@rdf:about='']/skos:historyNote" />
+      </ul>
+    </xsl:if>
 
     <xsl:if test="*[@rdf:about='']/vann:preferredNamespaceUri">
       <h2 id="sec-namespace">Namespace</h2>
@@ -283,7 +280,7 @@ Brief notes on the kind of RDF/XML this schema requires:
       
       <xsl:if test="*[@rdf:about='']/vann:preferredNamespacePrefix">
         <p>
-          When used in XML documents the suggested prefix is <code><xsl:value-of select="*[@rdf:about='']/vann:preferredNamespacePrefix"/></code>
+          When used in RDF or XML documents the suggested prefix is <code><xsl:value-of select="*[@rdf:about='']/vann:preferredNamespacePrefix"/></code>
         </p>
       </xsl:if>
       <p>Each class or property in the vocabulary has a URI constructed by appending a term name to the vocabulary URI. For example:</p>
@@ -1008,8 +1005,8 @@ Brief notes on the kind of RDF/XML this schema requires:
 
   <xsl:template match="skos:historyNote">
     <li class="historyNote">
-      <xsl:value-of select="@dcterm:date|dcterm:date"/> - semantic change by <xsl:value-of select="@dcterm:creator|dcterm:creator"/>:
-      "<xsl:value-of select="@rdf:value|rdf:value"/>"
+      <xsl:value-of select="@dcterm:date|*/dcterm:date"/> - semantic change by <xsl:value-of select="@dcterm:creator|*/dcterm:creator"/>:
+      "<xsl:value-of select="@rdf:value|*/rdf:value"/>"
     </li>
   </xsl:template>
 
