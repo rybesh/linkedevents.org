@@ -1,0 +1,104 @@
+pre {
+    background-color: #f3f3ff;
+    border: 1px #9999cc dotted;
+    color: #000000;
+    margin-left: 2em;
+    width: 90%;
+}
+body {
+    font: 14px helvetica, clean, sans-serif;
+}
+a, p, q, dl, dd, dt {
+    font-size: 1em;
+}
+dt {
+    font-weight: bold;
+}
+:link {
+    background: transparent;
+    color: #00C;
+}
+:visited {
+    background: transparent;
+    color: #609;
+}
+:link:active, :visited:active {
+    background: transparent;
+    color: #C00;
+}
+:link:hover, :visited:hover {
+    background: #ffa;
+}
+code :link, code :visited {
+    color: inherit;
+}
+h1 {
+    background: transparent;
+    border-bottom: 1px solid gray;
+    color: #56102E;
+    font: 900 170% sans-serif;
+}
+h2 {
+    background: transparent;
+    border-bottom: 1px solid gray;
+    color: #56102E;
+    font: 800 140% sans-serif;
+}
+h3 {
+    background: transparent;
+    color: #56102E;
+    font: 700 120% sans-serif;
+}
+h4 {
+    font: bold 100% sans-serif;
+}
+body {
+    line-height: 1.35;
+    padding: 0 4em 2em 4em;
+}
+p {
+    margin: 1em 0;
+}
+dl, dd {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+dt {
+    clear: left;
+    margin-bottom: 0.25em;
+    margin-top: 0.75em;
+}
+dt, dfn {
+    font-style: normal;
+    font-weight: bold;
+}
+pre, code {
+    font-family: monospace;
+    font-size: inherit;
+}
+table.properties { width: 90%; }
+table.properties th {
+    font-weight: normal;
+    text-align: right;
+    width: 9em;
+}
+table {
+    border: none;
+    border-collapse: collapse;
+    font-size: inherit;
+}
+table thead {
+    border-bottom: solid #999999 2px;
+}
+table td, table th {
+    border: none;
+    border-bottom: solid #CCCCCC 1px;
+    padding: 0.5em 1em 0.5em 0.5em;
+    vertical-align: top;
+}
+table tr:hover td {
+    color: #56102E;
+}
+.historyList {
+    font-size: 0.9em;
+}
