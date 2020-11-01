@@ -1,8 +1,8 @@
 @prefix cc: <http://web.resource.org/cc/> .
-@prefix crm: <http://purl.org/NET/cidoc-crm/core#> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
 @prefix dcterm: <http://purl.org/dc/terms/> .
 @prefix dctype: <http://purl.org/dc/dcmitype/> .
-@prefix dul: <http://www.loa-cnr.it/ontologies/DUL.owl#> .
+@prefix dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
 @prefix ev: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
@@ -29,27 +29,40 @@ dcterm:contributor [
 dcterm:contributor [
   foaf:name "Lynda Hardman" ;
   foaf:homepage <http://www.cwi.nl/~lynda/> ] ;
-dcterm:rights "Copyright © 2010 Ryan Shaw" ;
+dcterm:rights "Copyright © 2020 Ryan Shaw" ;
 cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
 rdfs:comment """
 This document describes an ontology for publishing descriptions of
 historical events as Linked Data, and for mapping between other
 event-related vocabularies and ontologies."""@en ;
-dcterm:hasFormat <html/>, <rdfxml/> ;
+dcterm:hasFormat <html/>, <ttl/>, <rdfxml/> ;
 vann:preferredNamespaceUri "http://linkedevents.org/ontology/" ;
 vann:preferredNamespacePrefix "lode" ;
 skos:historyNote [
   rdf:value "Added illustrate property." ;
   dcterm:date "2010-10-07"^^xsd:date ;
-  dcterm:creator "Raphaël Troncy" ]
+  dcterm:creator "Raphaël Troncy" ] ;
+skos:historyNote [
+  rdf:value "Updated CRM and DUL namespaces." ;
+  dcterm:date "2020-10-31"^^xsd:date ;
+  dcterm:creator "Ryan Shaw" ] ;
+skos:changeNote [
+  rdf:value "Added Turtle serialization." ;
+  dcterm:date "2020-10-31"^^xsd:date ;
+  dcterm:creator "Ryan Shaw" ]
 .
 
-<html/> dcterm:format [ 
+<html/> dcterm:format [
   a dcterm:IMT;
   rdf:value "text/html" ;
   rdfs:label "HTML"@en ] .
 
-<rdfxml/> dcterm:format [ 
+<ttl/> dcterm:format [
+  a dcterm:IMT ;
+  rdf:value "text/turtle" ;
+  rdfs:label "TTL"@en ] .
+
+<rdfxml/> dcterm:format [
   a dcterm:IMT;
   rdf:value "application/rdf+xml" ;
   rdfs:label "RDF/XML"@en ] .
@@ -201,7 +214,7 @@ rdfs:range lode:Event;
 
 # The event class and participatory relations have direct equivalents
 # in the DOLCE+DnS Ultralite ontology.
-lode:Event owl:equivalentClass dul:Event . 
+lode:Event owl:equivalentClass dul:Event .
 lode:involved owl:equivalentProperty dul:hasParticipant .
 lode:involvedAgent owl:equivalentProperty dul:involvesAgent .
 
@@ -232,7 +245,7 @@ lode:inSpace owl:equivalentProperty ev:place .
 
 # ev:agent is a sub-property of lode:involvedAgent because the latter
 # generalizes the former to include all relations to agents whether or
-# not their role is "active or "passive".  
+# not their role is "active or "passive".
 ev:agent rdfs:subPropertyOf lode:involvedAgent .
 
 # lode:involved is both more specific than ev:factor, because it

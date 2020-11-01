@@ -29,10 +29,12 @@ def run(date, previous_date):
 
     # Write released ontology.
     release_dir = os.path.join('ontology', date)
-    release_file = os.path.join(release_dir, 'index.rdf')
+    rdfxml_file = os.path.join(release_dir, 'index.rdf')
+    turtle_file = os.path.join(release_dir, 'index.ttl')
     if not os.path.isdir(release_dir):
         os.makedirs(release_dir)
-    g.serialize(release_file, base=str(LODE), format='pretty-xml', max_depth=1)
+    g.serialize(rdfxml_file, base=str(LODE), format='pretty-xml', max_depth=1)
+    g.serialize(turtle_file, base=str(LODE), format='turtle')
 
     # Generate HTML documentation.
     def resolve_uri(context, relative_uri):
@@ -40,7 +42,7 @@ def run(date, previous_date):
     ns = etree.FunctionNamespace('http://python.org/')
     ns['resolve-uri'] = resolve_uri
     transform = etree.XSLT(etree.parse('vocab-toolchain/html-docs.xsl'))
-    html = transform(etree.parse(release_file))
+    html = transform(etree.parse(rdfxml_file))
     html.write(os.path.join(release_dir, 'index.html'), method='html')
 
 

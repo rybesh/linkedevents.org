@@ -998,8 +998,8 @@ Brief notes on the kind of RDF/XML this schema requires:
 
   <xsl:template match="skos:changeNote">
     <li class="changeNote">
-      <xsl:value-of select="@dcterm:date|dcterm:date"/> - editorial change by <xsl:value-of select="@dcterm:creator|dcterm:creator"/>:
-      "<xsl:value-of select="@rdf:value|rdf:value"/>"
+      <xsl:value-of select="@dcterm:date|*/dcterm:date"/> - editorial change by <xsl:value-of select="@dcterm:creator|*/dcterm:creator"/>:
+      "<xsl:value-of select="@rdf:value|*/rdf:value"/>"
     </li>
   </xsl:template>
 
@@ -1233,77 +1233,33 @@ Brief notes on the kind of RDF/XML this schema requires:
               <xsl:text>:</xsl:text>
               <xsl:value-of select="substring-after($uri, $vocabUri)"/>
             </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')">
-              <xsl:text>rdf:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://www.w3.org/2000/01/rdf-schema#')">
-              <xsl:text>rdfs:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://www.w3.org/2000/01/rdf-schema#')"/>
-            </xsl:when>
             <xsl:when test="starts-with($uri, 'http://www.w3.org/2002/07/owl#')">
               <xsl:text>owl:</xsl:text>
               <xsl:value-of select="substring-after($uri, 'http://www.w3.org/2002/07/owl#')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://purl.org/vocab/frbr/core#')">
-              <xsl:text>frbr:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://purl.org/vocab/frbr/core#')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://xmlns.com/foaf/0.1/')">
-              <xsl:text>foaf:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://xmlns.com/foaf/0.1/')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://xmlns.com/wordnet/1.6/')">
-              <xsl:text>wordnet:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://xmlns.com/wordnet/1.6/')"/>
             </xsl:when>
             <xsl:when test="starts-with($uri, 'http://purl.org/dc/dcmitype/')">
               <xsl:text>dctype:</xsl:text>
               <xsl:value-of select="substring-after($uri, 'http://purl.org/dc/dcmitype/')"/>
             </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://purl.org/dc/terms/')">
-              <xsl:text>dcterm:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://purl.org/dc/terms/')"/>
-            </xsl:when>
             <xsl:when test="starts-with($uri, 'http://www.w3.org/2003/01/geo/wgs84_pos#')">
               <xsl:text>geo:</xsl:text>
               <xsl:value-of select="substring-after($uri, 'http://www.w3.org/2003/01/geo/wgs84_pos#')"/>
             </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://www.w3.org/2004/02/skos/core#')">
-              <xsl:text>skos:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://www.w3.org/2004/02/skos/core#')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://www.w3.org/2001/XMLSchema#')">
-              <xsl:text>xsd:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://www.w3.org/2001/XMLSchema#')"/>
-            </xsl:when>
             <xsl:when test="starts-with($uri, 'http://www.w3.org/2006/time#')">
-              <xsl:text>owltime:</xsl:text>
+              <xsl:text>time:</xsl:text>
               <xsl:value-of select="substring-after($uri, 'http://www.w3.org/2006/time#')"/>
             </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://purl.org/vocab/frbr/extended#')">
-              <xsl:text>frbre:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://purl.org/vocab/frbr/extended#')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://purl.org/vocab/relationship/')">
-              <xsl:text>rel:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://purl.org/vocab/relationship/')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://purl.org/vocab/bio/0.1/')">
-              <xsl:text>bio:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://purl.org/vocab/bio/0.1/')"/>
-            </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://www8.informatik.uni-erlangen.de/IMMD8/Services/cidoc-crm/2008/09/01/cidoc-crm-4.2.4.LessExpressive.owl#')">
-              <xsl:text>cidoc:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://www8.informatik.uni-erlangen.de/IMMD8/Services/cidoc-crm/2008/09/01/cidoc-crm-4.2.4.LessExpressive.owl#')"/>
+            <xsl:when test="starts-with($uri, 'http://www.cidoc-crm.org/cidoc-crm/')">
+              <xsl:text>crm:</xsl:text>
+              <xsl:value-of select="substring-after($uri, 'http://www.cidoc-crm.org/cidoc-crm/')"/>
             </xsl:when>
             <xsl:when test="starts-with($uri, 'http://purl.org/NET/c4dm/event.owl#')">
               <xsl:text>event:</xsl:text>
               <xsl:value-of select="substring-after($uri, 'http://purl.org/NET/c4dm/event.owl#')"/>
             </xsl:when>
-            <xsl:when test="starts-with($uri, 'http://www.loa-cnr.it/ontologies/DUL.owl#')">
+            <xsl:when test="starts-with($uri, 'http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#')">
               <xsl:text>dul:</xsl:text>
-              <xsl:value-of select="substring-after($uri, 'http://www.loa-cnr.it/ontologies/DUL.owl#')"/>
+              <xsl:value-of select="substring-after($uri, 'http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#')"/>
             </xsl:when>
 
             <xsl:otherwise>
