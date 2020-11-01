@@ -84,12 +84,12 @@ Brief notes on the kind of RDF/XML this schema requires:
         <title>
           <xsl:value-of select="*[@rdf:about='']/dcterm:title|*[@rdf:about='']/@dcterm:title"/>
         </title>
-        <link rel="meta" type="application/rdf+xml">
+        <link rel="alternate" type="application/rdf+xml">
           <xsl:attribute name="title">
             <xsl:value-of select="*[@rdf:about='']/dcterm:title|*[@rdf:about='']/@dcterm:title"/>
           </xsl:attribute>
           <xsl:attribute name="href">
-            <xsl:value-of select="concat(*[@rdf:about='']/dcterm:identifier, '.rdf')"/>
+            <xsl:value-of select="concat(*[@rdf:about='']/dcterm:identifier, 'rdfxml/')"/>
           </xsl:attribute>
         </link>
         <xsl:call-template name="output-style"/>
