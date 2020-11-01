@@ -25,7 +25,7 @@ dcterm:creator [
   foaf:homepage <http://aeshin.org/> ] ;
 dcterm:contributor [
   foaf:name "Raphaël Troncy" ;
-  foaf:homepage <http://www.cwi.nl/~troncy/> ] ;
+  foaf:homepage <http://www.eurecom.fr/~troncy/> ] ;
 dcterm:contributor [
   foaf:name "Lynda Hardman" ;
   foaf:homepage <http://www.cwi.nl/~lynda/> ] ;
