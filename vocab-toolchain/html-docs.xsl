@@ -120,7 +120,7 @@ Brief notes on the kind of RDF/XML this schema requires:
 
           <dt>Latest Version</dt>
           <dd>
-            <a href="{*[@rdf:about='']/dcterm:isVersionOf/@rdf:resource}">
+            <a href="{py:resolve-uri(*[@rdf:about='']/dcterm:isVersionOf/@rdf:resource)}">
               <xsl:value-of select="py:resolve-uri(*[@rdf:about='']/dcterm:isVersionOf/@rdf:resource)"/>
             </a>
           </dd>
