@@ -218,7 +218,7 @@ Brief notes on the kind of RDF/XML this schema requires:
       
       <xsl:if test="*[@rdf:about='']/dcterm:replaces">
         <li>
-          <a href="#sec-changes">Changes From Previous Version</a>
+          <a href="#sec-changes">Change History</a>
         </li>
       </xsl:if> 
       
@@ -264,12 +264,14 @@ Brief notes on the kind of RDF/XML this schema requires:
 
 
     <xsl:if test="*[@rdf:about='']/dcterm:replaces">
-      <h2 id="sec-changes">Changes From Previous Version</h2>
+      <h2 id="sec-changes">Change History</h2>
       <ul>
-        <xsl:if test="dcterm:issued|@dcterm:issued">
+        <xsl:if test="*[@rdf:about='']/dcterm:issued">
           <li><span class="date"><xsl:value-of select="*[@rdf:about='']/dcterm:issued|*[@rdf:about='']/@dcterm:issued"/></span> - first issued</li>
         </xsl:if>
-        <xsl:apply-templates select="*[@rdf:about='']/skos:changeNote|*[@rdf:about='']/skos:historyNote" />
+        <xsl:apply-templates select="*[@rdf:about='']/skos:changeNote|*[@rdf:about='']/skos:historyNote">
+          <xsl:sort select="./rdf:Description/dcterm:date"/>
+        </xsl:apply-templates>
       </ul>
     </xsl:if>
 
