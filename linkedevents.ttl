@@ -32,6 +32,10 @@ dcterm:contributor [
   foaf:homepage <http://www.cwi.nl/~lynda/> ] ;
 dcterm:rights "Copyright © 2021 Ryan Shaw" ;
 cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+dcterm:description """
+This document describes an ontology for publishing descriptions of
+historical events as Linked Data, and for mapping between other
+event-related vocabularies and ontologies."""@en ;
 rdfs:comment """
 This document describes an ontology for publishing descriptions of
 historical events as Linked Data, and for mapping between other
