@@ -135,6 +135,8 @@ rdfs:domain lode:Event;
 rdfs:range edtf:EDTF;
 .
 
+edtf:EDTF a rdfs:Datatype .
+
 lode:circa a owl:ObjectProperty;
 rdfs:label "circa"@en ;
 rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
