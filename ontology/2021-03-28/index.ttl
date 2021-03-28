@@ -108,6 +108,8 @@ crm:P12_occurred_in_the_presence_of rdfs:subPropertyOf <involved> .
 
 crm:P7_took_place_at rdfs:subPropertyOf <inSpace> .
 
+edtf:EDTF a rdfs:Datatype .
+
 <html/> dcterm:format [ a dcterm:IMT ;
             rdfs:label "HTML"@en ;
             rdf:value "text/html" ] .
