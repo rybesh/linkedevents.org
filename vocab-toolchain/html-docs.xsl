@@ -1261,6 +1261,10 @@ Brief notes on the kind of RDF/XML this schema requires:
               <xsl:text>dul:</xsl:text>
               <xsl:value-of select="substring-after($uri, 'http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#')"/>
             </xsl:when>
+            <xsl:when test="starts-with($uri, 'http://id.loc.gov/datatypes/edtf/')">
+              <xsl:text>edtf:</xsl:text>
+              <xsl:value-of select="substring-after($uri, 'http://id.loc.gov/datatypes/edtf/')"/>
+            </xsl:when>
 
             <xsl:otherwise>
               <xsl:value-of select="$uri" />

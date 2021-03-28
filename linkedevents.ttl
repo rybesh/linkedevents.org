@@ -3,6 +3,7 @@
 @prefix dcterm: <http://purl.org/dc/terms/> .
 @prefix dctype: <http://purl.org/dc/dcmitype/> .
 @prefix dul: <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
+@prefix edtf: <http://id.loc.gov/datatypes/edtf/> .
 @prefix ev: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
@@ -49,6 +50,10 @@ skos:historyNote [
 skos:changeNote [
   rdf:value "Added Turtle serialization." ;
   dcterm:date "2020-10-31"^^xsd:date ;
+  dcterm:creator "Ryan Shaw" ] ;
+skos:historyNote [
+  rdf:value "Added atEDTFTime property." ;
+  dcterm:date "2021-03-28"^^xsd:date ;
   dcterm:creator "Ryan Shaw" ]
 .
 
@@ -109,6 +114,21 @@ Equivalent definitions from other ontologies:
   a time region (either instantaneous or having an extent).\""""@en ;
 rdfs:domain lode:Event;
 rdfs:range time:TemporalEntity;
+.
+
+lode:atEDTFTime a owl:DatatypeProperty, owl:FunctionalProperty;
+rdfs:label "at EDTF time"@en ;
+rdfs:isDefinedBy <http://linkedevents.org/ontology/> ;
+dcterm:issued "2021-03-28"^^xsd:date ;
+skos:definition """
+an abstract instant or interval of time that is when an event happened,
+expressed as an EDTF literal"""@en ;
+rdfs:comment """
+This property can be used as an alternative to lode:atTime for
+expressing the temporal coverage of an event using the Extended
+Date/Time Format (EDTF)."""@en ;
+rdfs:domain lode:Event;
+rdfs:range edtf:EDTF;
 .
 
 lode:circa a owl:ObjectProperty;
