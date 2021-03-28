@@ -30,7 +30,7 @@ dcterm:contributor [
 dcterm:contributor [
   foaf:name "Lynda Hardman" ;
   foaf:homepage <http://www.cwi.nl/~lynda/> ] ;
-dcterm:rights "Copyright © 2020 Ryan Shaw" ;
+dcterm:rights "Copyright © 2021 Ryan Shaw" ;
 cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
 rdfs:comment """
 This document describes an ontology for publishing descriptions of
