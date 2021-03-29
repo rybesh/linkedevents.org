@@ -188,6 +188,10 @@ explained by a historian."""@en .
     dcterm:creator [ foaf:homepage <http://aeshin.org/> ;
             foaf:name "Ryan Shaw" ] ;
     dcterm:date "2020-10-31"^^xsd:date ;
+    dcterm:description """
+This document describes an ontology for publishing descriptions of
+historical events as Linked Data, and for mapping between other
+event-related vocabularies and ontologies."""@en ;
     dcterm:hasFormat <html/>,
         <rdfxml/>,
         <ttl/> ;
@@ -196,7 +200,7 @@ explained by a historian."""@en .
     dcterm:issued "2009-10-07"^^xsd:date ;
     dcterm:modified "2020-10-31"^^xsd:date ;
     dcterm:replaces <2010-10-07/> ;
-    dcterm:rights "Copyright © 2020 Ryan Shaw" ;
+    dcterm:rights "Copyright © 2021 Ryan Shaw" ;
     dcterm:title "LODE: An ontology for Linking Open Descriptions of Events"@en ;
     vann:preferredNamespacePrefix "lode" ;
     vann:preferredNamespaceUri "http://linkedevents.org/ontology/" ;
