@@ -1,5 +1,5 @@
 PYTHON := ./venv/bin/python
-.DEFAULT_GOAL := run
+.DEFAULT_GOAL := release
 
 $(PYTHON): requirements.txt
 	python3 -m venv venv
@@ -7,10 +7,10 @@ $(PYTHON): requirements.txt
 	$(PYTHON) -m pip install wheel
 	$(PYTHON) -m pip install -r requirements.txt
 
-.PHONY: run clean
-
-run: | $(PYTHON)
-	./release.py
+.PHONY: clean release
 
 clean:
 	rm -rf venv
+
+release: | $(PYTHON)
+	./release.py
