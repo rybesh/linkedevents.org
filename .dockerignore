@@ -1,0 +1,6 @@
+# Ignore everything
+*
+
+# Allow nginx config and site directory
+!/nginx.conf
+!/site
