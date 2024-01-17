@@ -195,7 +195,7 @@ event-related vocabularies and ontologies."""@en ;
     dcterm:hasFormat <html/>,
         <rdfxml/>,
         <ttl/> ;
-    dcterm:identifier "http://linkedevents.org/ontology/2020-10-31/" ;
+    dcterm:identifier "https://linkedevents.org/ontology/2020-10-31/" ;
     dcterm:isVersionOf <> ;
     dcterm:issued "2009-10-07"^^xsd:date ;
     dcterm:modified "2020-10-31"^^xsd:date ;

@@ -14,7 +14,7 @@ clean:
 	rm -rf venv
 
 release: | $(PYTHON)
-	./release.py
+	./release.py $(LATEST)
 
 deploy:
 	rm -rf site
