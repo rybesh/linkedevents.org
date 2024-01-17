@@ -5,6 +5,7 @@ Utility for generating HTML documentation of the LODE ontology.
 """
 import datetime
 import os
+import re
 import sys
 from glob import glob
 from urllib.parse import urljoin
@@ -18,6 +19,7 @@ from rdflib.namespace import (
 )
 
 LODE = Namespace("http://linkedevents.org/ontology/")
+LODE_SECURE = Namespace("https://linkedevents.org/ontology/")
 
 
 def run(date, previous_date):
@@ -27,7 +29,7 @@ def run(date, previous_date):
     ontology = g.value(predicate=RDF.type, object=OWL.Ontology)
     g.add((ontology, DCTERMS.date, Literal(date, datatype=XSD.date)))  # type: ignore
     g.add((ontology, DCTERMS.modified, Literal(date, datatype=XSD.date)))  # type: ignore
-    g.add((ontology, DCTERMS.identifier, Literal(f"{LODE}{date}/")))  # type: ignore
+    g.add((ontology, DCTERMS.identifier, Literal(f"{LODE_SECURE}{date}/")))  # type: ignore
     g.add((ontology, OWL.versionInfo, Literal(date)))  # type: ignore
     if previous_date:
         g.add((ontology, DCTERMS.replaces, URIRef(f"{LODE}{previous_date}/")))  # type: ignore
@@ -43,7 +45,11 @@ def run(date, previous_date):
 
     # Generate HTML documentation.
     def resolve_uri(context, relative_uri):
-        return urljoin(context.context_node.base, relative_uri[0])
+        base = context.context_node.base
+        relative_uri = relative_uri[0]
+        if len(relative_uri) == 0 or re.match(r"^\d{4}-\d{2}-\d{2}/$", relative_uri):
+            base = base.replace("http", "https", 1)
+        return urljoin(base, relative_uri)
 
     ns = etree.FunctionNamespace("http://python.org/")
     ns["resolve-uri"] = resolve_uri
