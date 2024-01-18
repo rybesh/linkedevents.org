@@ -15,6 +15,7 @@ clean:
 
 release: | $(PYTHON)
 	./release.py $(LATEST)
+	chmod 644 ontology/$(LATEST)/*
 
 deploy:
 	rm -rf site
